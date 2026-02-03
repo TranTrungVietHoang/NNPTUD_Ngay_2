@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập JavaScript - Product</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .exercise {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exercise:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .exercise h2 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .result {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .result pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #333;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .info {
+            color: #17a2b8;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ BÀI TẬP JAVASCRIPT - PRODUCT</h1>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // Hàm tiện ích để hiển thị kết quả
+        function displayResult(title, content, exerciseNumber) {
+            const output = document.getElementById('output');
+            const exerciseDiv = document.createElement('div');
+            exerciseDiv.className = 'exercise';
+            exerciseDiv.innerHTML = `
+                <span class="badge">Câu ${exerciseNumber}</span>
+                <h2>${title}</h2>
+                <div class="result">
+                    <pre>${content}</pre>
+                </div>
+            `;
+            output.appendChild(exerciseDiv);
+        }
+
+        // ===== CÂU 1: Khai báo constructor function Product =====
+        function Product(id, name, price, quantity, category, isAvailable) {
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+            this.category = category;
+            this.isAvailable = isAvailable;
+        }
+
+        displayResult(
+            'Khai báo constructor function Product',
+            'Constructor function Product đã được tạo với các thuộc tính:\n' +
+            '- id: mã sản phẩm\n' +
+            '- name: tên sản phẩm\n' +
+            '- price: giá sản phẩm\n' +
+            '- quantity: số lượng tồn kho\n' +
+            '- category: danh mục sản phẩm\n' +
+            '- isAvailable: trạng thái bán (true/false)',
+            1
+        );
+
+        // ===== CÂU 2: Khởi tạo mảng products gồm ít nhất 6 sản phẩm =====
+        const products = [
+            new Product(1, 'iPhone 15 Pro Max', 35000000, 15, 'Electronics', true),
+            new Product(2, 'Samsung Galaxy S24 Ultra', 32000000, 20, 'Electronics', true),
+            new Product(3, 'AirPods Pro', 6500000, 0, 'Accessories', false),
+            new Product(4, 'iPad Air M2', 18000000, 10, 'Electronics', true),
+            new Product(5, 'Apple Watch Ultra', 22000000, 8, 'Accessories', true),
+            new Product(6, 'MacBook Pro 16"', 65000000, 5, 'Electronics', true),
+            new Product(7, 'USB-C Cable', 450000, 50, 'Accessories', true),
+            new Product(8, 'Magic Keyboard', 3500000, 12, 'Accessories', true)
+        ];
+
+        let productsDisplay = '📦 Danh sách sản phẩm:\n\n';
+        products.forEach((product, index) => {
+            productsDisplay += `${index + 1}. ${product.name}\n`;
+            productsDisplay += `   - Giá: ${product.price.toLocaleString('vi-VN')} VNĐ\n`;
+            productsDisplay += `   - Danh mục: ${product.category}\n`;
+            productsDisplay += `   - Số lượng: ${product.quantity}\n`;
+            productsDisplay += `   - Trạng thái: ${product.isAvailable ? 'Đang bán' : 'Ngừng bán'}\n\n`;
+        });
+
+        displayResult(
+            'Khởi tạo mảng products (ít nhất 6 sản phẩm, thuộc tối thiểu 2 danh mục khác nhau)',
+            productsDisplay,
+            2
+        );
+
+        // ===== CÂU 3: Tạo mảng mới chỉ chứa name, price của mỗi sản phẩm =====
+        const productNamePrice = products.map(product => ({
+            name: product.name,
+            price: product.price
+        }));
+
+        let namePriceDisplay = '📝 Danh sách tên và giá sản phẩm:\n\n';
+        productNamePrice.forEach((item, index) => {
+            namePriceDisplay += `${index + 1}. ${item.name} - ${item.price.toLocaleString('vi-VN')} VNĐ\n`;
+        });
+
+        displayResult(
+            'Tạo mảng mới chỉ chứa name, price của mỗi sản phẩm',
+            namePriceDisplay,
+            3
+        );
+
+        // ===== CÂU 4: Lọc ra các sản phẩm còn hàng trong kho (quantity > 0) =====
+        const productsInStock = products.filter(product => product.quantity > 0);
+
+        let inStockDisplay = '✅ Sản phẩm còn hàng trong kho:\n\n';
+        productsInStock.forEach((product, index) => {
+            inStockDisplay += `${index + 1}. ${product.name} - Số lượng: ${product.quantity}\n`;
+        });
+
+        displayResult(
+            'Lọc ra các sản phẩm còn hàng trong kho (quantity > 0)',
+            inStockDisplay,
+            4
+        );
+
+        // ===== CÂU 5: Kiểm tra xem có ít nhất một sản phẩm có giá trên 30.000.000 hay không =====
+        const hasExpensiveProduct = products.some(product => product.price > 30000000);
+
+        let expensiveDisplay = `Kết quả: ${hasExpensiveProduct ? '<span class="success">✓ CÓ</span>' : '<span class="warning">✗ KHÔNG</span>'}\n\n`;
+        
+        if (hasExpensiveProduct) {
+            const expensiveProducts = products.filter(product => product.price > 30000000);
+            expensiveDisplay += 'Các sản phẩm có giá trên 30.000.000:\n';
+            expensiveProducts.forEach((product, index) => {
+                expensiveDisplay += `${index + 1}. ${product.name} - ${product.price.toLocaleString('vi-VN')} VNĐ\n`;
+            });
+        }
+
+        displayResult(
+            'Kiểm tra xem có ít nhất một sản phẩm có giá trên 30.000.000 hay không',
+            expensiveDisplay.replace(/<span class="success">|<span class="warning">|<\/span>/g, ''),
+            5
+        );
+
+        // ===== CÂU 6: Kiểm tra xem tất cả sản phẩm thuộc danh mục "Accessories" có đang được bán (isAvailable = true) hay không =====
+        const accessoriesProducts = products.filter(product => product.category === 'Accessories');
+        const allAccessoriesAvailable = accessoriesProducts.every(product => product.isAvailable === true);
+
+        let accessoriesDisplay = `Kết quả: ${allAccessoriesAvailable ? '✓ TẤT CẢ đều đang bán' : '✗ KHÔNG phải tất cả đều đang bán'}\n\n`;
+        accessoriesDisplay += `Tổng số sản phẩm Accessories: ${accessoriesProducts.length}\n\n`;
+        accessoriesDisplay += 'Chi tiết:\n';
+        accessoriesProducts.forEach((product, index) => {
+            accessoriesDisplay += `${index + 1}. ${product.name} - Trạng thái: ${product.isAvailable ? 'Đang bán ✓' : 'Ngừng bán ✗'}\n`;
+        });
+
+        displayResult(
+            'Kiểm tra xem tất cả sản phẩm thuộc danh mục "Accessories" có đang được bán hay không',
+            accessoriesDisplay,
+            6
+        );
+
+        // ===== CÂU 7: Tính tổng giá trị kho hàng (price × quantity) =====
+        const totalInventoryValue = products.reduce((total, product) => {
+            return total + (product.price * product.quantity);
+        }, 0);
+
+        let inventoryDisplay = `💰 Tổng giá trị kho hàng: ${totalInventoryValue.toLocaleString('vi-VN')} VNĐ\n\n`;
+        inventoryDisplay += 'Chi tiết tính toán:\n';
+        products.forEach((product, index) => {
+            const value = product.price * product.quantity;
+            inventoryDisplay += `${index + 1}. ${product.name}:\n`;
+            inventoryDisplay += `   ${product.price.toLocaleString('vi-VN')} × ${product.quantity} = ${value.toLocaleString('vi-VN')} VNĐ\n`;
+        });
+
+        displayResult(
+            'Tính tổng giá trị kho hàng (price × quantity)',
+            inventoryDisplay,
+            7
+        );
+
+        // ===== CÂU 8: Dùng for...of duyệt mảng products và in ra: Tên sản phẩm - Danh mục - Trạng thái =====
+        let forOfDisplay = '📋 Danh sách sản phẩm (dùng for...of):\n\n';
+        let count = 1;
+        for (const product of products) {
+            const status = product.isAvailable ? 'Đang bán' : 'Ngừng bán';
+            forOfDisplay += `${count}. ${product.name} - ${product.category} - ${status}\n`;
+            count++;
+        }
+
+        displayResult(
+            'Dùng for...of duyệt mảng products và in ra: Tên sản phẩm - Danh mục - Trạng thái',
+            forOfDisplay,
+            8
+        );
+
+        // ===== CÂU 9: Dùng for...in để in ra tên thuộc tính và giá trị tương ứng =====
+        let forInDisplay = '🔍 Thuộc tính và giá trị của sản phẩm đầu tiên (dùng for...in):\n\n';
+        forInDisplay += `Sản phẩm: ${products[0].name}\n`;
+        forInDisplay += '─'.repeat(50) + '\n\n';
+        
+        for (const property in products[0]) {
+            const value = products[0][property];
+            forInDisplay += `📌 Thuộc tính: ${property}\n`;
+            forInDisplay += `   Giá trị: ${typeof value === 'number' ? value.toLocaleString('vi-VN') : value}\n\n`;
+        }
+
+        displayResult(
+            'Dùng for...in để in ra tên thuộc tính và giá trị tương ứng',
+            forInDisplay,
+            9
+        );
+
+        // ===== CÂU 10: Lấy danh sách tên các sản phẩm đang bán và còn hàng =====
+        const availableAndInStockNames = products
+            .filter(product => product.isAvailable === true && product.quantity > 0)
+            .map(product => product.name);
+
+        let availableDisplay = `✅ Tổng số: ${availableAndInStockNames.length} sản phẩm\n\n`;
+        availableDisplay += 'Danh sách:\n';
+        availableAndInStockNames.forEach((name, index) => {
+            availableDisplay += `${index + 1}. ${name}\n`;
+        });
+
+        displayResult(
+            'Lấy danh sách tên các sản phẩm đang bán và còn hàng',
+            availableDisplay,
+            10
+        );
+
+        // In tất cả kết quả ra console để dễ kiểm tra
+        console.log('===== BÀI TẬP JAVASCRIPT - PRODUCT =====\n');
+        console.log('Câu 1: Constructor function Product đã được tạo');
+        console.log('\nCâu 2: Mảng products:', products);
+        console.log('\nCâu 3: Mảng name-price:', productNamePrice);
+        console.log('\nCâu 4: Sản phẩm còn hàng:', productsInStock);
+        console.log('\nCâu 5: Có sản phẩm > 30tr?', hasExpensiveProduct);
+        console.log('\nCâu 6: Tất cả Accessories đang bán?', allAccessoriesAvailable);
+        console.log('\nCâu 7: Tổng giá trị kho:', totalInventoryValue.toLocaleString('vi-VN'));
+        console.log('\nCâu 8: for...of - Xem trên trang web');
+        console.log('\nCâu 9: for...in - Xem trên trang web');
+        console.log('\nCâu 10: Sản phẩm đang bán và còn hàng:', availableAndInStockNames);
+    </script>
+</body>
+</html>
